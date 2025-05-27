@@ -1,5 +1,5 @@
 {
-  "name": "1.template_hal",
+  "name": "template_hal",
   "type": "ARM",
   "dependenceList": [],
   "srcDirs": [],
@@ -104,6 +104,11 @@
         "name": "::CMSIS",
         "files": [],
         "folders": []
+      },
+      {
+        "name": "Hardware",
+        "files": [],
+        "folders": []
       }
     ]
   },
@@ -114,7 +119,7 @@
     "uid": "b205d05f992f645f9d9e7c1596955a0e"
   },
   "targets": {
-    "1.led_up_hal": {
+    "template_hal": {
       "excludeList": [],
       "toolchain": "AC5",
       "compileConfig": {
@@ -260,7 +265,8 @@
           "../Drivers/CMSIS/Device/ST/STM32F1xx/Include",
           "../Drivers/CMSIS/Include",
           ".cmsis/include",
-          "../MDK-ARM/RTE/_1.led_up_hal"
+          "../MDK-ARM/RTE/_1.led_up_hal",
+          "../Hardware/inc"
         ],
         "libList": [],
         "defineList": [

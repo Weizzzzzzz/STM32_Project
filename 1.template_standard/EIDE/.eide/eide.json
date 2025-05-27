@@ -1,5 +1,5 @@
 {
-  "name": "1.template_standard",
+  "name": "template_standard",
   "type": "ARM",
   "dependenceList": [],
   "srcDirs": [],
@@ -302,7 +302,7 @@
           "afterBuildTasks": [],
           "global": {
             "use-microLIB": true,
-            "output-debug-info": "enable"
+            "output-debug-info": "disable"
           },
           "c/cpp-compiler": {
             "optimization": "level-0",
@@ -316,7 +316,6 @@
           "asm-compiler": {},
           "linker": {
             "output-format": "elf",
-            "xo-base": "",
             "ro-base": "0x08000000",
             "rw-base": "0x20000000"
           }
