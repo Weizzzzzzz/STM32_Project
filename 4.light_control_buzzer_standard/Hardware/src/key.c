@@ -8,7 +8,7 @@
 void Key_Init(void)
 {
     // 开启GPIOB时钟（对应RCC_APB2ENR寄存器的IOPBEN位）
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+    RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
 
     // 定义GPIO配置结构体
     GPIO_InitTypeDef GPIO_InitStructure;
