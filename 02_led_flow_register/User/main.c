@@ -4,7 +4,7 @@
 int main(void)
 {
 	// 定义一个包含三个LED灯的数组
-	uint32_t leds[] = {LED1, LED2, LED3};
+	uint16_t leds[3] = {LED1, LED2, LED3};
 
 	// 初始化LED灯
 	LED_Init();

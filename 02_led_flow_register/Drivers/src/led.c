@@ -25,19 +25,19 @@ void LED_Init(void)
 }
 
 // 点亮LED
-void LED_On(uint32_t led)
+void LED_On(uint16_t led)
 {
     GPIOB->ODR &= ~led;
 }
 
 // 熄灭LED
-void LED_Off(uint32_t led)
+void LED_Off(uint16_t led)
 {
     GPIOB->ODR |= led;
 }
 
 // 切换LED状态
-void LED_Toggle(uint32_t led)
+void LED_Toggle(uint16_t led)
 {
     if ((GPIOB->IDR)&led==0)
     {
@@ -50,7 +50,7 @@ void LED_Toggle(uint32_t led)
 }
 
 // 点亮多个LED
-void LED_On_All(uint32_t leds[], uint8_t size)
+void LED_On_All(uint16_t leds[], uint8_t size)
 {
     for (uint8_t i = 0; i < size; i++)
     {
@@ -58,7 +58,7 @@ void LED_On_All(uint32_t leds[], uint8_t size)
     }
 }
 // 熄灭多个LED
-void LED_Off_All(uint32_t leds[], uint8_t size)
+void LED_Off_All(uint16_t leds[], uint8_t size)
 {
     for (uint8_t i = 0; i < size; i++)
     {
