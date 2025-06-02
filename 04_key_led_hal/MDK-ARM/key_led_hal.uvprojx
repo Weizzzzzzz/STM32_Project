@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>ex02_led_onoff_hal</TargetName>
+      <TargetName>key_led_hal</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <uAC6>0</uAC6>
@@ -47,8 +47,8 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>ex02_led_onoff_hal\</OutputDirectory>
-          <OutputName>ex02_led_onoff_hal</OutputName>
+          <OutputDirectory>key_led_hal\</OutputDirectory>
+          <OutputName>key_led_hal</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -136,7 +136,7 @@
             <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>BIN\UL2CM3.DLL</Flash2>
+          <Flash2>BIN\UL2V8M.DLL</Flash2>
           <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
@@ -498,7 +498,7 @@
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="4.3.0" condition="CMSIS Core">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="4.5.0"/>
         <targetInfos>
-          <targetInfo name="ex02_led_onoff_hal"/>
+          <targetInfo name="key_led_hal"/>
         </targetInfos>
       </component>
     </components>
