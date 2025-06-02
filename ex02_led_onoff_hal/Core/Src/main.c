@@ -95,11 +95,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    // 循环3次，将leds数组中的前3个引脚置为低电平
     for (uint8_t i = 0; i < 3; i++)
     {
       HAL_GPIO_WritePin(GPIOB, leds[i], GPIO_PIN_RESET);
       HAL_Delay(500);
     }
+    // 循环3次，将leds数组中的后3个引脚置为高电平
     for (uint8_t i = 0; i < 3; i++)
     {
       HAL_GPIO_WritePin(GPIOB, leds[n - i - 1], GPIO_PIN_SET);

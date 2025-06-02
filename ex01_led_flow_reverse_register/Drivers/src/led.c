@@ -39,7 +39,7 @@ void LED_Off(uint32_t led)
 // 切换LED状态
 void LED_Toggle(uint32_t led)
 {
-    if ((GPIOB->IDR)&led==0)
+    if ((GPIOB->IDR & led) == 0)
     {
         LED_Off(led);
     }
