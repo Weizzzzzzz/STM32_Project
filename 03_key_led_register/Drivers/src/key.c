@@ -37,7 +37,7 @@ void EXTI0_IRQHandler(void)
     // 清除外部中断线0的挂起位
     EXTI->PR |= EXTI_PR_PR0;
 
-    Delay_ms(50);
+    Delay_ms(15);
     if ((GPIOA->IDR & GPIO_IDR_IDR0) != 0)
     {
         // 切换LED1的状态

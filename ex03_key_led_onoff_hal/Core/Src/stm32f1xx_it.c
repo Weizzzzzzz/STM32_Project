@@ -237,7 +237,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     // 延时15ms
     HAL_Delay(15);
     // 如果KEY1引脚的电平为低
-    if (HAL_GPIO_ReadPin(GPIOA, KEY1_Pin) == GPIO_PIN_SET)
+    if (HAL_GPIO_ReadPin(GPIOA, KEY1_Pin) != GPIO_PIN_RESET)
     {
       // 切换LED1引脚的电平
       HAL_GPIO_TogglePin(GPIOB, LED1_Pin);
@@ -248,7 +248,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     // 延时15ms
     HAL_Delay(15);
     // 如果KEY2引脚的电平为低
-    if (HAL_GPIO_ReadPin(GPIOA, KEY2_Pin) == GPIO_PIN_SET)
+    if (HAL_GPIO_ReadPin(GPIOA, KEY2_Pin) != GPIO_PIN_RESET)
     {
       // 切换LED2引脚的电平
       HAL_GPIO_TogglePin(GPIOB, LED2_Pin);
