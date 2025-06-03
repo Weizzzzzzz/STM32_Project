@@ -17,8 +17,7 @@ int main(void)
 	// 无限循环
 	while (1)
 	{
-		// 检查接收完成标志
-		if (ReceptionIsComplete)
+		if (ReceptionIsComplete) // 检查接收完成标志
 		{
 			ReceptionIsComplete = 0;		// 清除接收完成标志
 			Usart1_SendString(buffer, len); // 回显接收到的数据
