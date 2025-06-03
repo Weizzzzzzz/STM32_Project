@@ -35,6 +35,15 @@ void Usart1_Init(void)
     USART1->CR1 &= ~USART_CR1_M;                                 // 8位数据位
     USART1->CR1 &= ~USART_CR1_PCE;                               // 无校验位
     USART1->CR2 &= ~USART_CR2_STOP;                              // 1位停止位
+
+    // 使能接收缓冲区非空中断和空闲帧中断
+    USART1->CR1 |= USART_CR1_RXNEIE; // 接收缓冲区非空中断使能
+    USART1->CR1 |= USART_CR1_IDLEIE; // 空闲帧检测中断使能
+
+    // 配置NVIC中断优先级
+    NVIC_SetPriorityGrouping(3);      // 设置优先级分组为3（4位抢占优先级，0位子优先级）
+    NVIC_SetPriority(USART1_IRQn, 3); // 设置USART1中断优先级为3
+    NVIC_EnableIRQ(USART1_IRQn);      // 启用USART1全局中断
 }
 
 /**
@@ -66,83 +75,29 @@ void Usart1_SendString(uint8_t *srt, uint8_t len)
 }
 
 /**
- * 简    介：接收单个字符
+ * 简    介：USART1全局中断服务例程
  * 参    数：无
- * 返 回 值：接收到的字节
- * 功能描述：等待接收缓冲区非空标志，读取数据
- */
-uint8_t Usart1_ReceiveChar(void)
-{
-    // 等待接收缓冲区非空
-    while ((USART1->SR & USART_SR_RXNE) == 0)
-    {
-        if (USART1->SR & USART_SR_IDLE)
-        {
-            return 0;         // 返回空字符
-        }
-    }
-    return USART1->DR; // 读取接收数据寄存器
-}
-
-/**
- * 简    介：接收字符串（空闲帧触发）
- * 参    数：
- *   buffer - 接收缓冲区指针
- *   len    - 实际接收长度指针
  * 返 回 值：无
  * 功能描述：
- * 1. 持续接收直到检测到空闲帧
- * 2. 将接收到的数据存储到缓冲区
- * 3. 返回实际接收长度（不包含空闲帧）
- * 限制说明：
- * - 最大接收长度为255字节（受限于uint8_t类型）
- * - 未实现缓冲区大小检查
+ * 1. 处理接收缓冲区非空事件(RXNE)
+ * 2. 处理空闲线检测事件(IDLE)
  */
-void Usart1_ReceiveString(uint8_t buffer[], uint8_t *len)
+void USART1_IRQHandler(void)
 {
-    uint8_t i = 0;
-    uint8_t ch;
-
-    // 等待空闲帧
-    while ((USART1->SR & USART_SR_IDLE) == 0)
+    // 检查接收缓冲区非空中断标志
+    if (USART1->SR & USART_SR_RXNE)
     {
-        ch = Usart1_ReceiveChar(); // 接收单个字符
-        if (ch != 0)               // 仅存储有效数据
-        {
-            buffer[i++] = ch;
-        }
+        // 读取数据寄存器并存储到缓冲区
+        buffer[len] = USART1->DR; // 数据读取清除RXNE标志
+        len++;                    // 更新缓冲区索引
     }
+    // 检测到空闲帧
+    else if (USART1->SR & USART_SR_IDLE)
+    {
+        // 清除IDLE标志（先读SR再读DR）
+        (void)USART1->SR; // 读取状态寄存器
+        (void)USART1->DR; // 读取数据寄存器
 
-    // 清除IDLE标志（先读SR再读DR）
-    USART1->SR; // 读取状态寄存器
-    USART1->DR; // 读取数据寄存器
-
-    *len = --i; // 保存实际接收长度
+        ReceptionIsComplete = 1; // 设置接收完成标志
+    }
 }
-
-// /**
-//  * 简    介：接收字符串（空闲中断模式）
-//  * 参    数：buffer - 接收缓冲区，len - 实际接收长度
-//  * 返 回 值：无
-//  * 功能描述：持续接收直到检测到空闲帧
-//  */
-// void Usart1_ReceiveString(uint8_t buffer[], uint8_t *len)
-// {
-//     uint8_t i = 0;
-
-//     while (1)
-//     {
-//         // 等待接收缓冲区非空
-//         while ((USART1->SR & USART_SR_RXNE) == 0)
-//         {
-//             // 检测到空闲帧时返回
-//             if (USART1->SR & USART_SR_IDLE)
-//             {
-//                 *len = i; // 保存接收长度
-//                 return;
-//             }
-//         }
-//         buffer[i] = USART1->DR; // 读取接收到的数据
-//         i++;
-//     }
-// }
