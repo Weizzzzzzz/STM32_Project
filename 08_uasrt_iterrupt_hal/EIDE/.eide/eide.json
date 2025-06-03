@@ -1,5 +1,5 @@
 {
-  "name": "key_led_flow_hal",
+  "name": "uasrt_iterrupt_hal",
   "type": "ARM",
   "dependenceList": [],
   "srcDirs": [],
@@ -38,6 +38,9 @@
                   },
                   {
                     "path": "../Core/Src/stm32f1xx_hal_msp.c"
+                  },
+                  {
+                    "path": "../Core/Src/usart.c"
                   }
                 ],
                 "folders": []
@@ -85,6 +88,9 @@
               },
               {
                 "path": "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c"
+              },
+              {
+                "path": "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c"
               }
             ],
             "folders": []
@@ -109,7 +115,7 @@
     "uid": "74823f431b77a3f31bfd03e9c23ff5de"
   },
   "targets": {
-    "key_led_flow_hal": {
+    "uasrt_iterrupt_hal": {
       "excludeList": [],
       "toolchain": "AC5",
       "compileConfig": {
