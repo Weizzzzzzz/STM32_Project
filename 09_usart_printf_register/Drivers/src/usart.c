@@ -75,6 +75,19 @@ void Usart1_SendString(uint8_t *srt, uint8_t len)
 }
 
 /**
+ * @brief  重定向C库函数fputc，将字符通过USART1发送。
+ *         此函数通常用于配合printf等标准输出函数，使其输出重定向至串行端口。
+ * @param  ch 要发送的字符。
+ * @param  file 文件流指针。在此实现中未使用，保留以兼容标准库fputc原型。
+ * @retval int 成功发送时返回该字符。若底层发送函数(Usart1_SendChar)失败，当前实现未处理错误，仍返回ch。
+ */
+int fputc(int ch, FILE *file)
+{
+    Usart1_SendChar(ch); // 调用USART1发送单个字符函数
+    return ch;           // 返回发送的字符
+}
+
+/**
  * 简    介：USART1全局中断服务例程
  * 参    数：无
  * 返 回 值：无
