@@ -20,7 +20,4 @@ void Usart1_SendChar(uint8_t ch);
 //       len - 需发送的字节长度
 void Usart1_SendString(uint8_t *str, uint8_t len);
 
-// 函数声明：重定向C库函数fputc到USART1，用于支持printf输出
-int fputc(int ch, FILE *file);
-
 #endif
