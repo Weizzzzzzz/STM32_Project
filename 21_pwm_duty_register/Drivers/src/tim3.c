@@ -1,0 +1,58 @@
+#include "tim3.h"
+
+/**
+ * @brief  初始化TIM3用于PWM输出 (CH2/PB5).
+ * @param  None
+ * @retval None
+ */
+void TIM3_Init(void)
+{
+    // --- 时钟使能 ---
+    RCC->APB2ENR |= RCC_APB2ENR_IOPBEN; // GPIOB 时钟: 使能
+    RCC->APB1ENR |= RCC_APB1ENR_TIM3EN; // TIM3 时钟: 使能
+    RCC->APB2ENR |= RCC_APB2ENR_AFIOEN; // AFIO 时钟: 使能 (用于重映射)
+
+    // --- TIM3 重映射配置 ---
+    AFIO->MAPR &= ~AFIO_MAPR_TIM3_REMAP;  // TIM3_REMAP: 清除位
+    AFIO->MAPR |= AFIO_MAPR_TIM3_REMAP_1; // TIM3_REMAP: 部分重映射 (CH2->PB5, CH3->PB0)
+
+    // PB5 (TIM3_CH2): AF推挽输出, 50MHz
+    GPIOB->CRL |= (GPIO_CRL_MODE5 | GPIO_CRL_CNF5_1); // PB5: MODE=11 (50MHz), CNF=10 (AF推挽)
+    GPIOB->CRL &= ~GPIO_CRL_CNF5_0;                   // PB5: CNF5_0 清零
+
+    // --- TIM3 时基配置 ---
+    TIM3->PSC = 7200 - 1; // 预分频器: 7199 (10kHz @ 72MHz PCLK1)
+    TIM3->ARR = 100 - 1;  // 自动重载值: 99 (100Hz PWM频率)
+
+    TIM3->CR1 &= ~TIM_CR1_DIR; // 计数方向: 向上计数
+
+    // --- TIM3 PWM 通道2 配置 (50% 占空比) ---
+    TIM3->CCR2 = 50; // CH2 比较值
+
+    // 配置通道为输出
+    TIM3->CCMR1 &= ~TIM_CCMR1_CC2S; // CC2S: CH2 配置为输出
+
+    // 配置PWM模式1 (向上计数时, CNT<CCR 时输出高电平)
+    // CH2: PWM模式1
+    TIM3->CCMR1 |= TIM_CCMR1_OC2M_2; // OC2M: 110 (PWM模式1)
+    TIM3->CCMR1 |= TIM_CCMR1_OC2M_1;
+    TIM3->CCMR1 &= ~TIM_CCMR1_OC2M_0;
+
+    // --- TIM3 捕获/比较使能 ---
+    TIM3->CCER |= TIM_CCER_CC2E; // CC2E: CH2 输出使能
+}
+
+void TIM3_Start(void)
+{
+    TIM3->CR1 |= TIM_CR1_CEN;
+}
+
+void TIM3_Stop(void)
+{
+    TIM3->CR1 &= ~TIM_CR1_CEN;
+}
+
+void TIM3_SetDutyCycle(uint8_t dutyCycle)
+{
+    TIM3->CCR2 = dutyCycle;
+}
