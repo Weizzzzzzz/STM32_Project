@@ -17,7 +17,7 @@ int main(void)
 	// 无限循环
 	while (1)
 	{
-		printf("T = %.2fms, f = %.2fHz, duty = %.2f%%\n", TIM4_GetPWMCycle(), TIM4_GetPWMFceq(), TIM4_GetPWMDutyCycle() * 100);
+		printf("T = %.2fms, f = %.2fHz, duty = %.2f%%\n", TIM4_GetPWMCycle(), TIM4_GetPWMFreq(), TIM4_GetPWMDutyCycle() * 100);
 		Delay_s(1);
 	}
 }

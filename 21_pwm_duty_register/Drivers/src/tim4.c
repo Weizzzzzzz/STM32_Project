@@ -83,7 +83,7 @@ double TIM4_GetPWMCycle(void)
  * @param  None
  * @retval double PWM频率 (Hz).
  */
-double TIM4_GetPWMFceq(void)
+double TIM4_GetPWMFreq(void)
 {
     return 1000000.0 / TIM4->CCR1; // 计算频率
 }

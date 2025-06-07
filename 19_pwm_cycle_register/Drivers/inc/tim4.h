@@ -11,6 +11,6 @@ void TIM4_Stop(void);
 
 double TIM4_GetPWMCycle(void);
 
-double TIM4_GetPWMFceq(void);
+double TIM4_GetPWMFreq(void);
 
 #endif
