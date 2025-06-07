@@ -13,12 +13,13 @@ int main(void)
 	// 无限循环
 	while (1)
 	{
-		if ((dutyCycle <= 1) | (dutyCycle > 100))
+		if ((dutyCycle <= 0) | (dutyCycle >= 99))
 		{
 			step = -step;
 		}
 		dutyCycle += step;
-		TIM3_SetDutyCycle(dutyCycle);
+		TIM3_SetCH2DutyCycle(dutyCycle);
+		TIM3_SetCH3DutyCycle(100 - dutyCycle);
 		Delay_ms(20);
 	}
 }
