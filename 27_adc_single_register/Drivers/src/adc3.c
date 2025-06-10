@@ -47,8 +47,8 @@ void ADC3_StartConvert(void)
         ;                             // 空循环等待
     ADC3->CR2 |= ADC_CR2_SWSTART;     // 启动软件触发转换
 
-    while ((ADC3->SR & ADC_SR_EOC)) // 等待转换完成 (EOC位为1表示转换完成)
-        ;                           // 空循环等待
+    while ((ADC3->SR & ADC_SR_EOC) == 0) // 等待转换完成 (EOC位为1表示转换完成)
+        ;                                // 空循环等待
 }
 
 /**

@@ -93,6 +93,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
   printf("Hello WEI!\n");
 
+  HAL_ADCEx_Calibration_Start(&hadc3);
+  
   HAL_ADC_Start(&hadc3);
   /* USER CODE END 2 */
 
