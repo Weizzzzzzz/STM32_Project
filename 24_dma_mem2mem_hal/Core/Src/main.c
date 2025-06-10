@@ -112,7 +112,6 @@ int main(void)
       }
       DMATransferIsComplete = 0;
     }
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
